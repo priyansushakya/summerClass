@@ -1,0 +1,1 @@
+Today I learned about the installation of laravel. After the installation, I learned about the structure of laravel through VS code. 
