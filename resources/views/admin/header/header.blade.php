@@ -1,7 +1,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Movie Admin Dashboard</title>
+  <title>{{$title}}</title>
   <style>
     :root {
       --primary: #4f46e5;

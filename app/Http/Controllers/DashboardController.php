@@ -10,6 +10,7 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
+        $title= 'Admin Dashboard';
         $statistics=[
             'totaluser'=> User::count(),
             'totalmovies'=>Movie::count(),
@@ -17,6 +18,6 @@ class DashboardController extends Controller
             'totalmoviewatched'=>1,
         ];
         $movies = Movie::latest()->get(['id','name']); //select * from movies order by id desc
-        return view('admin/dashboard', compact('statistics','movies'));
+        return view('admin.dashboard', compact('title','statistics','movies'));
     }
 }
