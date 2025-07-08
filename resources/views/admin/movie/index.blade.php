@@ -6,6 +6,10 @@
         <h2 class="section-title">Manage Movies</h2>
     </div>
 
+    <div style="text-align: right; margin: 10px 0;">
+        <a href="{{ route('admin.movie.create') }}" class="add-link">Add +</a>
+    </div>
+
     <div class="table-responsive">
         <table class="styled-table-movie">
             <thead>
@@ -31,19 +35,18 @@
                     <td>{{$movie->duration}}</td>
                     <td>{{$movie->rating}}</td>
                     <td>
-                        <a href="#"><i class="fa fa-edit"></i></a>
+                        <a href="#"><i class="fa fa-edit" style="font-size: 20px;"></i></a>
                         &nbsp;
                         <form action="{{ route('admin.movie.delete', $movie->id) }}" method="POST" style="display: inline;"
                         onsubmit="return confirm('Are you sure you want to delete this movie?')">
-                        @csrf
                         @method('DELETE')
                         <button type="submit" title="Delete">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-trash" style="font-size: 20px;"></i>
                         </button>
-                    </form>
+                        </form>
                     </td>
 
-                    </tr>
+                </tr>
                 @endforeach
             </tbody>
         </table>
@@ -74,6 +77,21 @@
     margin: 0;
 }
 
+.add-link {
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.add-link:hover {
+    background-color: #3730a3;
+}
+
+
 /* Responsive container for table */
 .table-responsive {
     width: 100%;
@@ -89,6 +107,7 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
 }
 
 .styled-table-movie thead {

@@ -6,6 +6,10 @@
         <h2 class="section-title">Manage Genres</h2>
     </div>
 
+    <div style="text-align: right; margin: 10px 0;">
+        <a href="{{ route('admin.genre.create') }}" class="add-link">Add +</a>
+    </div>
+
     <div class="table-responsive">
         <table class="styled-table-genre">
             <thead>
@@ -18,27 +22,26 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($genres as $genre)
                 <tr>
-                    <td>1</td>
-                    <td>Action</td>
-                    <td>High-paced sequences, stunts, and fights.</td>
-                    <td>12</td>
-                    <td><a href="#">Edit</a> <button>Delete</button></td>
+                    <td>{{$loop->index+1}}</td>
+                    <td>{{$genre->name}}</td>
+                    <td>{{$genre->description}}</td>
+                    <td></td>
+                    <td>
+                        <a href="#"><i class="fa fa-edit" style="font-size: 20px;"></i></a>
+                        &nbsp;
+                        <form action="" method="POST" style="display: inline;"
+                        onsubmit="return confirm('Are you sure you want to delete this movie?')">
+                        @method('DELETE')
+                        <button type="submit" title="Delete">
+                            <i class="fa fa-trash" style="font-size: 20px;"></i>
+                        </button>
+                        </form>
+                    </td>
+
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Comedy</td>
-                    <td>Light-hearted content meant to entertain and amuse.</td>
-                    <td>8</td>
-                    <td><a href="#">Edit</a> <button>Delete</button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Horror</td>
-                    <td>Scary scenes designed to startle and thrill viewers.</td>
-                    <td>6</td>
-                    <td><a href="#">Edit</a> <button>Delete</button></td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -68,6 +71,20 @@
     margin: 0;
 }
 
+.add-link {
+    background-color: #10b981;
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.add-link:hover {
+    background-color: #3730a3;
+}
+
 /* Responsive container for table */
 .table-responsive {
     width: 100%;
@@ -83,6 +100,7 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
 }
 
 .styled-table-genre thead {

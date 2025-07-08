@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 use App\Models\Movie;
 use App\Models\User;
 use App\Models\Genre;
@@ -18,6 +18,6 @@ class DashboardController extends Controller
             'totalmoviewatched'=>1,
         ];
         $movies = Movie::latest()->get(['id','name']); //select * from movies order by id desc
-        return view('admin.dashboard', compact('title','statistics','movies'));
+        return view('admin.dashboard.index', compact('title','statistics','movies'));
     }
 }
