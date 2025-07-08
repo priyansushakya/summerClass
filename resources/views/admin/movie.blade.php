@@ -11,46 +11,40 @@
             <thead>
                 <tr>
                     <th>S.N</th>
-                    <th>Poster</th>
                     <th>Title</th>
+                    <th>Description</th>
                     <th>Genre</th>
                     <th>Release</th>
                     <th>Duration</th>
-                    <th>Views</th>
+                    <th>Rating</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach($movies as $movie)
                 <tr>
-                    <td>1</td>
-                    <td><img src="https://image.tmdb.org/t/p/w92/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg" alt="Inception"></td>
-                    <td>Inception</td>
-                    <td>Sci-Fi</td>
-                    <td>2010</td>
-                    <td>148 min</td>
-                    <td>1024</td>
-                    <td><a href="#">Edit</a> <button>Delete</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><img src="https://image.tmdb.org/t/p/w92/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg" alt="Interstellar"></td>
-                    <td>Interstellar</td>
-                    <td>Sci-Fi</td>
-                    <td>2014</td>
-                    <td>169 min</td>
-                    <td>980</td>
-                    <td><a href="#">Edit</a> <button>Delete</button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><img src="https://image.tmdb.org/t/p/w92/eEslKSwcqmiNS6va24Pbxf2UKmJ.jpg" alt="Godfather"></td>
-                    <td>The Godfather</td>
-                    <td>Drama</td>
-                    <td>1972</td>
-                    <td>175 min</td>
-                    <td>1200</td>
-                    <td><a href="#">Edit</a> <button>Delete</button></td>
-                </tr>
+                    <td>{{$loop->index+1}}</td>
+                    <td>{{$movie->name}}</td>
+                    <td>{{$movie->description}}</td>
+                    <td>{{$movie->genre_id}}</td>
+                    <td>{{$movie->release_date}}</td>
+                    <td>{{$movie->duration}}</td>
+                    <td>{{$movie->rating}}</td>
+                    <td>
+                        <a href="#"><i class="fa fa-edit"></i></a>
+                        &nbsp;
+                        <form action="{{ route('admin.movie.delete', $movie->id) }}" method="POST" style="display: inline;"
+                        onsubmit="return confirm('Are you sure you want to delete this movie?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" title="Delete">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                    </td>
+
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
