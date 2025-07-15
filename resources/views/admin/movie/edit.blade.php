@@ -3,35 +3,35 @@
 @section('content')
 <div class="movie-form-page">
     <div class="form-card">
-        <h2 class="form-title"> Add New Movie</h2>
+        <h2 class="form-title"> Edit Movie</h2>
 
-        <form action="{{ route('admin.movie.store') }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+        <form action="{{ route('admin.movie.update',$movie->id) }}" method="POST" autocomplete="off">
             @csrf
-
+            @method('PUT')
             <div class="form-grid">
                 <div class="form-group">
                     <label>Title</label>
-                    <input type="text" name="name" required>
+                    <input type="text" name="name" value="{{ old('name') ?? $movie->name }}" required>
                 </div>
 
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea name="description" rows="3" required></textarea>
+                    <textarea name="description" rows="3" required>{{ old('name') ?? $movie->name }}</textarea>
                 </div>
 
                 <div class="form-group">
                     <label>Duration (hours)</label>
-                    <input type="text" name="duration" required>
+                    <input type="text" name="duration" value="{{ old('duration') ?? $movie->duration }}"required>
                 </div>
 
                 <div class="form-group">
                     <label>Release Date</label>
-                    <input type="date" name="release_date" required>
+                    <input type="date" name="release_date" value="{{ old('release_date') ?? $movie->release_date }}" required>
                 </div>
 
                 <div class="form-group">
                     <label>Rating</label>
-                    <input type="number" step="0.01" name="rating" required>
+                    <input type="number" step="0.01" name="rating" value="{{ old('rating') ?? $movie->rating }}"required>
                 </div>
 
                 <div class="form-group">
@@ -39,14 +39,14 @@
                     <select name="genre_id" required>
                         <option value="">Select Genre</option>
                         @foreach($genres as $genre)
-                            <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                            <option value="{{ $genre->id }}" @if((old('genre_id') ?? $movie->genre_id) ==$genre->id) selected @endif>{{ $genre->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Language</label>
-                    <input type="text" name="language" required>
+                    <input type="text" name="language" value="{{ old('language') ?? $movie->language }}"required>
                     @error('language')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -54,16 +54,16 @@
 
                 <div class="form-group">
                     <label>Cast (comma-separated)</label>
-                    <textarea name="cast" rows="2" required></textarea>
+                    <textarea name="cast" rows="2" required>{{ old('cast') ?? $movie->cast }}</textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="rating" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="image" name="image" required>
-                    @error('image')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+                <label for="rating" class="form-label">Image <a target="_blank" href="{{ asset($movie->image) }}">Existing Image</a></label>
+                <input type="file" class="form-control" id="image" name="image">
+                @error('image')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
             </div>
 
             <div class="form-footer">

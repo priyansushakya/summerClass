@@ -4,6 +4,7 @@
   <title>{{$title}}</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <style>
     :root {
       --primary: #4f46e5;
@@ -224,6 +225,7 @@ body.dark .card-body li:hover {
       margin-top: auto;
       transition: background-color 0.3s, color 0.3s;
     }
+    .text-danger { color: #dc3545; }
 
     @media (max-width: 768px) {
       .sidebar {

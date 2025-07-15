@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th>S.N</th>
+                    <th>Image</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Genre</th>
@@ -28,24 +29,25 @@
                 @foreach($movies as $movie)
                 <tr>
                     <td>{{$loop->index+1}}</td>
+                    <td><a href="{{ asset($movie->image) }}" target="_blank"><img src="{{ asset($movie->image) }}"></a></td>
                     <td>{{$movie->name}}</td>
                     <td>{{$movie->description}}</td>
-                    <td>{{$movie->genre_id}}</td>
+                    <td>{{$movie->genre->name}}</td>
                     <td>{{$movie->release_date}}</td>
                     <td>{{$movie->duration}}</td>
                     <td>{{$movie->rating}}</td>
                     <td>
-                        <a href="#"><i class="fa fa-edit" style="font-size: 20px;"></i></a>
+                        <a href="{{ route('admin.movie.edit',$movie->id) }}"><i class="fa fa-edit" style="font-size: 20px;"></i></a>
                         &nbsp;
                         <form action="{{ route('admin.movie.delete', $movie->id) }}" method="POST" style="display: inline;"
                         onsubmit="return confirm('Are you sure you want to delete this movie?')">
+                        @csrf
                         @method('DELETE')
                         <button type="submit" title="Delete">
                             <i class="fa fa-trash" style="font-size: 20px;"></i>
                         </button>
                         </form>
                     </td>
-
                 </tr>
                 @endforeach
             </tbody>

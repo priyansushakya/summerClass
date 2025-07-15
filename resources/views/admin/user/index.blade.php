@@ -1,46 +1,45 @@
 @extends('admin.master')
 
 @section('content')
-<div class="genre-wrapper">
+<div class="movies-wrapper">
     <div class="title-box">
-        <h2 class="section-title">Manage Genres</h2>
+        <h2 class="section-title">Manage Users</h2>
     </div>
 
     <div style="text-align: right; margin: 10px 0;">
-        <a href="{{ route('admin.genre.create') }}" class="add-link">Add +</a>
+        <a href="" class="add-link">Add +</a>
     </div>
 
     <div class="table-responsive">
-        <table class="styled-table-genre">
+        <table class="styled-table-movie">
             <thead>
                 <tr>
                     <th>S.N</th>
-                    <th>Genre Name</th>
-                    <th>Description</th>
-                    <th>Total Movies</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created At</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($genres as $genre)
+                @foreach($users as $user)
                 <tr>
-                    <td>{{$loop->index+1}}</td>
-                    <td>{{$genre->name}}</td>
-                    <td>{{$genre->description}}</td>
-                    <td></td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->created_at }}</td>
                     <td>
                         <a href="#"><i class="fa fa-edit" style="font-size: 20px;"></i></a>
                         &nbsp;
-                        <form action="{{ route('admin.genre.delete', $genre->id) }}" method="POST" style="display: inline;"
-                        onsubmit="return confirm('Are you sure you want to delete this movie?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" title="Delete">
-                            <i class="fa fa-trash" style="font-size: 20px;"></i>
-                        </button>
+                        <form action="{{ route('admin.user.delete', $user->id) }}" method="POST" style="display: inline;"
+                              onsubmit="return confirm('Are you sure you want to delete this user?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" title="Delete">
+                                <i class="fa fa-trash" style="font-size: 20px;"></i>
+                            </button>
                         </form>
                     </td>
-
                 </tr>
                 @endforeach
             </tbody>
@@ -48,8 +47,9 @@
     </div>
 </div>
 
+<!-- Reuse the same CSS -->
 <style>
-.genre-wrapper {
+.movies-wrapper {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
@@ -58,8 +58,8 @@
 .title-box {
     background-color: #f9fafb;
     padding: 20px;
-    border-left: 6px solid  #059669;
-    border-right: 6px solid #059669;   
+    border-left: 6px solid #4f46e5;
+    border-right: 6px solid #4f46e5;
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
@@ -73,7 +73,7 @@
 }
 
 .add-link {
-    background-color: #10b981;
+    background-color: #4f46e5;
     color: #ffffff;
     padding: 8px 14px;
     border-radius: 6px;
@@ -86,6 +86,7 @@
     background-color: #3730a3;
 }
 
+
 /* Responsive container for table */
 .table-responsive {
     width: 100%;
@@ -93,9 +94,9 @@
 }
 
 /* Table styles */
-.styled-table-genre {
+.styled-table-movie {
     width: 100%;
-    min-width: 700px;
+    min-width: 800px;
     border-collapse: collapse;
     background-color: #ffffff;
     border-radius: 10px;
@@ -104,31 +105,37 @@
     margin-top: 10px;
 }
 
-.styled-table-genre thead {
-    background-color: #10b981;
+.styled-table-movie thead {
+    background-color: #4f46e5;
     color: #ffffff;
 }
 
-.styled-table-genre th,
-.styled-table-genre td {
+.styled-table-movie th,
+.styled-table-movie td {
     padding: 12px 14px;
     text-align: left;
     white-space: nowrap;
 }
 
-.styled-table-genre tbody tr:nth-child(even) {
-    background-color: #f3f4f6;
+.styled-table-movie tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.styled-table-movie img {
+    border-radius: 4px;
+    width: 45px;
+    height: auto;
 }
 
 /* Action buttons */
-.styled-table-genre a {
-    color: #059669;
+.styled-table-movie a {
+    color: #2563eb;
     text-decoration: none;
     font-weight: 500;
     margin-right: 8px;
 }
 
-.styled-table-genre button {
+.styled-table-movie button {
     background-color: transparent;
     border: none;
     color: #dc2626;
@@ -143,10 +150,14 @@
         text-align: center;
     }
 
-    .styled-table-genre th,
-    .styled-table-genre td {
+    .styled-table-movie th,
+    .styled-table-movie td {
         padding: 10px;
         font-size: 14px;
+    }
+
+    .styled-table-movie img {
+        width: 35px;
     }
 }
 </style>

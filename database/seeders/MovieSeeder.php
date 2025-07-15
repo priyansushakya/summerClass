@@ -8,9 +8,7 @@ use App\Models\Movie;
 
 class MovieSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
     public function run(): void
     {
         Movie::create([

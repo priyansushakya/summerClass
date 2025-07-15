@@ -1,14 +1,36 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\MovieController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\GenreController;
+use App\Http\Controllers\admin\MovieController;
+use App\Http\Controllers\admin\DashboardController;
 
 Route::get('/', [DashboardController::class, 'dashboard'])->name('admin.dashboard.index');
-Route::get('admin/genre/index', [GenreController::class, 'genre'])->name('admin.genre.index');
-Route::get('admin/genre/create', [GenreController::class, 'create'])->name('admin.genre.create');
 
-Route::get('admin/movie/index', [MovieController::class, 'movie'])->name('admin.movie.index');
-Route::get('/admin/movie/create', [MovieController::class, 'create'])->name('admin.movie.create');
-Route::delete('admin/movie/{movieId}', [MovieController::class, 'delete'])->name('admin.movie.delete');
+Route::prefix('/admin/genre')->as('admin.genre.')->controller(GenreController::class)->group(function () {
+    Route::get('/', 'index')->name('index'); // table get
+    Route::get('/create', 'create')->name('create'); // form dekhauna get
+    Route::post('/', 'store')->name('store'); // form ko data store, post
+    Route::get('/{genreId}', 'edit')->name('edit'); // get info before editing, get
+    Route::delete('/{genreId}', 'delete')->name('delete'); // delete
+
+});
+
+Route::prefix('admin/movie')->as('admin.movie.')->controller(MovieController::class)->group(function () {
+    Route::get('/', 'index')->name('index'); // table get
+    Route::get('/create', 'create')->name('create'); // form dekhauna get
+    Route::post('/', 'store')->name('store'); // form ko data store, post
+    Route::get('/{movieId}', 'edit')->name('edit'); // get info before editing, get
+    Route::put('/{movieId}', 'update')->name('update'); // update the edited changes, PUT
+    Route::delete('/{movieId}', 'delete')->name('delete'); // delete
+});
+
+Route::prefix('/admin/user')->as('admin.user.')->controller(UserController::class)->group(function () {
+    Route::get('/', 'index')->name('index'); // table get
+    Route::get('/create', 'create')->name('create'); // form dekhauna get
+    Route::post('/', 'store')->name('store'); // form ko data store, post
+    Route::get('/{userId}', 'edit')->name('edit'); // get info before editing, get
+    Route::delete('/{userId}', 'delete')->name('delete'); // delete
+
+});
